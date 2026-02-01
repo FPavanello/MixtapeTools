@@ -43,49 +43,122 @@ Then compile a third and last time.
 
 ---
 
-## What This Prompt Does
+## The Iterative Workflow
 
-### 1. Design Phase
-Creates an original Beamer theme rather than using defaults. The aesthetic should be:
+This is a loop, not a linear process. You repeat until all tests pass.
+
+### Step 1: Build and Compile
+
+Create the deck emphasizing:
+- **Beautiful slides** - every element earns its presence
+- **Beautiful figures** - clear, well-labeled, purposeful
+- **Beautiful tables** - clean, readable, highlighted key values
+- **Beautiful quantification** - numbers that tell a story
+- **MB/MC equivalence** - the marginal benefit to marginal cost ratio should be *equal across all slides*
+
+The goal is NOT to maximize cognitive density. The goal is **smoothness** - a consistent cognitive load throughout, so the audience isn't overwhelmed on slide 7 and bored on slide 12.
+
+Exception: **"Jump scares"** - deliberate spikes in density for rhetorical effect. A sudden, striking statistic. A provocative claim. These must be *intentional*, not accidents of poor distribution.
+
+Compile the deck.
+
+### Step 2: Fix ALL Compilation Warnings
+
+Check for and eliminate:
+- Overfull hbox
+- Underfull hbox
+- Overfull vbox
+- Underfull vbox
+
+**No matter how small or inconsequential they seem.** These warnings indicate that LaTeX is making compromises you didn't authorize. Fix every single one.
+
+Recompile.
+
+### Step 3: Check for Silent Visual Errors
+
+This is the critical step that most people skip. **Compilation success does not mean visual success.**
+
+The things that will NOT show up as errors but ARE visual errors:
+
+**Tikz problems:**
+- Shape size constraints forcing label misplacement
+- Labels not where you think they are
+- Coordinate systems misaligned
+- Arrows pointing to wrong locations
+
+**Software-generated graphics (ggplot2, matplotlib, etc.):**
+- Axis labels cut off or overlapping
+- Legend placement obscuring data
+- Text sizing inconsistent with slide aesthetic
+- Coordinate placements wrong
+
+**How to check:** You must explicitly verify coordinates. Ask:
+- "Check whether the placement of labels matches the intended placement by examining the coordinate values"
+- "Verify that Tikz node positions correspond to their visual appearance"
+- "Confirm ggplot labels are positioned correctly relative to their data points"
+
+This is where Referee 2 comes in - the adversarial reviewer should specifically check graphics positioning.
+
+### Step 4: Recompile and Re-evaluate
+
+After fixing graphics issues, recompile and check AGAIN for:
+- **Flow** - does the narrative still work?
+- **MB/MC equivalence** - is cognitive load still balanced?
+- **Label positioning** - are all visual elements where they belong?
+
+### Step 5: Repeat Until All Tests Pass
+
+This is a loop:
+```
+while (not all_tests_pass):
+    fix_issues()
+    recompile()
+    check_flow_and_equivalence()
+    check_label_positioning()
+```
+
+Only when the deck passes ALL tests do you, as the human, begin walking through it manually.
+
+---
+
+## What Each Phase Accomplishes
+
+### Design Phase
+Creates an original Beamer theme rather than using defaults:
 - Professional but distinctive
 - Consistent color palette
 - Clean typography
 - Appropriate for the audience
 
-### 2. Rhetoric Restructuring
-Takes existing content and applies the principles from `rhetoric_of_decks.md`:
+### Rhetoric Restructuring
+Takes existing content and applies principles from `rhetoric_of_decks.md`:
 - One idea per slide
 - Titles as assertions
 - Pyramid principle (conclusion first)
-- Optimal cognitive load distribution
+- MB/MC equivalence across slides
 
-### 3. Code Integration
-- Embeds executable code in slides
-- Creates standalone scripts for walkthroughs
+### Code Integration
 - Runs code FIRST to generate figures
+- Creates standalone scripts for walkthroughs
 - Inserts outputs (PNG, tex tables) into slides
+- Embeds executable code where pedagogically useful
 
-### 4. Multi-Agent Review Process
+### Multi-Agent Review
 
 **Agent 1 (Builder):** Creates the deck
 
-**Agent 2 (Rhetoric Reviewer):** Evaluates:
+**Agent 2 (Referee 2 / Rhetoric Reviewer):** Evaluates:
 - Narrative flow
-- Cognitive density balance
+- MB/MC balance across slides
 - Technical rigor maintained
 - Pedagogical consistency
+- **Graphics coordinate verification**
 
-**Agent 3 (Graphics Reviewer):** Checks:
-- Tikz positioning errors
-- ggplot label placement
+**Agent 3 (Graphics Specialist):** Checks ONLY:
+- Tikz positioning vs. intended positioning
+- ggplot/matplotlib label placement
 - Numerical accuracy in figures
-- Coordinate/position restrictions
-
-### 5. Compilation Discipline
-Three compilation passes:
-1. Initial compile
-2. Fix ALL overfull/underfull/vbox/hbox warnings (no matter how small)
-3. Final compile after agent reviews
+- Coordinate/position constraint conflicts
 
 ## Customization Tips
 
