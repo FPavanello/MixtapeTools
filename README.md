@@ -33,17 +33,54 @@ Sanitized examples from real projects showing these tools in action.
 
 ---
 
+## Installation
+
+### Understanding the Two Locations
+
+Claude Code uses two locations for configuration:
+
+1. **`~/.claude/`** - Global folder. Things here apply to ALL projects.
+2. **`<project>/CLAUDE.md`** - Project-specific. Changes per project.
+
+**What goes where:**
+- `CLAUDE.md` → Copy to each project root (project-specific context)
+- `referee2.md` → Can go in `~/.claude/` for global access, or use per-project
+- Presentation tools → Reference as needed
+
+### Quick Setup
+
+**Option A: Per-Project (Simple)**
+```bash
+# In your project directory
+curl -O https://raw.githubusercontent.com/scunning1975/MixtapeTools/main/claude/CLAUDE.md
+# Edit CLAUDE.md with your project specifics
+```
+
+**Option B: Global + Project (Recommended)**
+```bash
+# One-time: Clone for reference
+git clone https://github.com/scunning1975/MixtapeTools.git ~/MixtapeTools
+
+# Per project: Copy CLAUDE.md template
+cp ~/MixtapeTools/claude/CLAUDE.md ./CLAUDE.md
+# Edit with your project specifics
+```
+
+---
+
 ## Quick Start
 
 ### Using Referee 2
 
 1. Complete some code or analysis with Claude
-2. Open a new conversation
+2. Open a **new conversation** (true separation)
 3. Paste the contents of `referee2.md` as system context
 4. Paste your code/analysis and ask for a referee report
 5. Take the report back to your original Claude conversation
 6. Address each concern or justify not addressing it
 7. Iterate until Referee 2 accepts
+
+**Why a new conversation?** Referee 2 in the same conversation is just you grading your own homework. True adversarial review requires separation.
 
 ### Using CLAUDE.md
 
