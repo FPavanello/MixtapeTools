@@ -28,15 +28,34 @@ As I develop new approaches, I'll add them here. Anyone is free to use them.
 
 ---
 
-## What I Recommend
+## Start Here: My Workflow
 
-If you're new here, start with:
+**Location:** [`workflow.md`](workflow.md) | **Deck:** [`presentations/examples/workflow_deck/`](presentations/examples/workflow_deck/)
+
+Before diving into specific tools, read my workflow document. It explains **how I think about using Claude Code for empirical research**—not just the tools, but the philosophy behind them.
+
+**Key concepts:**
+
+| Concept | What It Means |
+|---------|---------------|
+| **Thinking partner, not code monkey** | Claude is a collaborator who reasons about problems, not just a code generator |
+| **External memory via markdown** | Claude has amnesia between sessions; markdown files provide institutional memory |
+| **Cross-software replication** | R = Stata = Python to 6 decimal places, or something is wrong |
+| **Adversarial review (Referee 2)** | Fresh Claude instance audits your work; you can't grade your own homework |
+| **Verification through visualization** | Trust pictures over numbers; errors become visible |
+| **Documentation as first-class output** | If it's not documented, it didn't happen |
+
+Everything else in this repo implements these principles.
+
+---
+
+## The Tools
 
 ### 1. Referee 2 (Systematic Audit & Replication Protocol)
 
 **Location:** `personas/referee2.md`
 
-The single most valuable practice I've developed. Referee 2 is a **health inspector for empirical research** — not a vague "be critical" persona, but a systematic audit and replication protocol with five specific audits, formal referee reports, and a revise & resubmit process.
+The single most valuable practice I've developed. Referee 2 is a **health inspector for empirical research**—not a vague "be critical" persona, but a systematic audit protocol with five specific audits, cross-language replication, formal referee reports, and a revise & resubmit process.
 
 **The Five Audits:**
 
@@ -44,32 +63,29 @@ The single most valuable practice I've developed. Referee 2 is a **health inspec
 |-------|--------------|
 | **Code Audit** | Scrutinizes for coding errors, missing value handling, merge diagnostics, variable construction |
 | **Cross-Language Replication** | Creates replication scripts in 2 other languages (R/Stata/Python), compares results to 6 decimal places |
-| **Directory Audit** | Checks folder structure, relative paths, naming conventions — is this replication-package ready? |
+| **Directory Audit** | Checks folder structure, relative paths, naming conventions—is this replication-package ready? |
 | **Output Automation Audit** | Are tables and figures programmatically generated or manually created? |
 | **Econometrics Audit** | Are specifications coherent? Standard errors correct? Identification plausible? |
 
-**Why Cross-Language Replication?**
-
-Hallucination errors are likely **orthogonal** across languages. If Claude writes R code with a subtle bug, the Stata version will likely have a *different* bug. When results match to 6+ decimal places across R, Stata, and Python, you have high confidence the code is correct. When they don't match, you've caught a bug that single-language review would miss.
-
-**Critical Rule: Referee 2 NEVER modifies author code.** Referee 2 only creates its own replication scripts in `code/replication/`. The author is the only one who modifies the author's code. This separation is essential — the audit must be independent.
-
-**The Revise & Resubmit Workflow:**
-
-1. Complete analysis in your main Claude session (the "author")
-2. Open a **new terminal** (fresh context is essential)
-3. Paste `referee2.md` and point Claude at your project
-4. Referee 2 performs 5 audits, creates replication scripts at `code/replication/`, files a formal **referee report** at `correspondence/referee2/`
-5. Close that terminal
-6. Read the referee report, write a **response** addressing each concern (fix or justify)
-7. File your response, open **another new terminal**, and **resubmit** for Round 2
-8. Iterate until verdict is Accept
+**Critical Rule:** Referee 2 NEVER modifies author code. It only creates its own replication scripts. The author is the only one who modifies the author's code. This separation ensures the audit is truly independent.
 
 ### 2. The Rhetoric of Decks
 
 **Location:** `presentations/`
 
 My philosophy of slide design, plus a tested prompt for generating Beamer presentations. The key insight: aim for MB/MC equivalence across slides (smoothness), not maximum density.
+
+**Core principles:**
+- Beauty earns attention; attention enables communication
+- Titles are assertions, not labels
+- One idea per slide
+- Bullets are defeat—find the structure hiding in your list
+
+### 3. CLAUDE.md Template
+
+**Location:** `claude/CLAUDE.md`
+
+A template for giving Claude persistent memory within a project. Copy it to your project root and fill in the specifics. Claude Code will automatically read it every session.
 
 ---
 
@@ -78,6 +94,7 @@ My philosophy of slide design, plus a tested prompt for generating Beamer presen
 ```
 MixtapeTools/
 ├── README.md                 # You are here
+├── workflow.md               # How I use Claude Code for research (START HERE)
 ├── claude/                   # Templates for working with Claude
 │   ├── CLAUDE.md            # Project context template (copy to your projects)
 │   └── README.md
@@ -90,6 +107,7 @@ MixtapeTools/
     ├── deck_generation_prompt.md      # The prompt + iterative workflow
     ├── README.md
     └── examples/
+        ├── workflow_deck/             # Visual presentation of the workflow
         ├── rhetoric_of_decks/         # The philosophy deck (45 slides)
         └── gov2001_probability/       # A lecture deck
 ```
@@ -126,43 +144,27 @@ If it's not documented, it didn't happen. Every audit produces a dated referee r
 
 ## Quick Start
 
-### Using Referee 2
+### 1. Read the Workflow
 
-**Round 1 (Initial Submission):**
+Start with [`workflow.md`](workflow.md) to understand the philosophy.
 
-1. Complete your analysis in your main Claude session
-2. Open a **new terminal** (true separation is essential)
-3. Paste the contents of `personas/referee2.md` as the opening message
-4. Say: "Please audit and replicate the project at [path]. Primary language is [R/Stata/Python]."
-5. Referee 2 performs 5 audits, creates replication scripts at `code/replication/`, and files:
-   - Referee report (markdown) at `correspondence/referee2/YYYY-MM-DD_round1_report.md`
-   - Referee report deck (PDF) at `correspondence/referee2/YYYY-MM-DD_round1_deck.pdf` — beautiful tables and figures showing cross-language comparisons, following rhetoric of decks principles
-6. Close that terminal
+### 2. Set Up a Project
 
-**Author Response:**
+Copy `claude/CLAUDE.md` to your project root. Fill in your project specifics.
 
-7. Read the referee report carefully
-8. For each Major Concern: fix your code OR write a justification for not fixing
-9. For each Minor Concern: fix your code OR acknowledge and deprioritize
-10. Answer all Questions for Authors
-11. File your response at `correspondence/referee2/YYYY-MM-DD_round1_response.md`
+### 3. Do Your Analysis
 
-**Round 2+ (Revision Review):**
+Work with Claude as a thinking partner, not a code generator. Ask it to explain its understanding. Verify outputs visually. Document as you go.
 
-12. Open **another new terminal**
-13. Paste `referee2.md`
-14. Say: "This is Round 2 of the revise & resubmit. Read the original referee report, my response, and the revised code."
-15. Referee 2 re-runs audits, assesses your responses, files Round 2 referee report
-16. Repeat until verdict is Accept
+### 4. Invoke Referee 2
 
-### Using CLAUDE.md
+When you have results worth checking:
 
-1. Copy `claude/CLAUDE.md` to your project root
-2. Fill in your project specifics
-3. Claude Code will automatically read it and maintain context
-4. Update it when you make important decisions ("we dropped X because Y")
-
-**Note:** Referee reports do NOT go into `CLAUDE.md`. They go in `correspondence/referee2/`. The CLAUDE.md file is for project context, not audit trails.
+1. Open a **new terminal** (fresh context is essential)
+2. Paste the contents of `personas/referee2.md`
+3. Say: "Please audit and replicate the project at [path]. Primary language is [R/Stata/Python]."
+4. Respond to the referee report (fix or justify each concern)
+5. Iterate until verdict is Accept
 
 ---
 
@@ -178,18 +180,12 @@ your_project/
 │       ├── 2026-02-01_round1_report.md      # Detailed written report
 │       ├── 2026-02-01_round1_deck.pdf       # Visual presentation of findings
 │       ├── 2026-02-02_round1_response.md    # Author response
-│       ├── 2026-02-05_round2_report.md      # Round 2 referee report
-│       ├── 2026-02-05_round2_deck.pdf
 │       └── ...
 ├── code/
 │   ├── R/                    # Author's code (ONLY author modifies)
 │   ├── stata/
 │   ├── python/
 │   └── replication/          # Referee 2's replication scripts
-│       ├── referee2_replicate_main_results.do
-│       ├── referee2_replicate_main_results.R
-│       ├── referee2_replicate_main_results.py
-│       └── ...
 ├── data/
 │   ├── raw/
 │   └── clean/
@@ -197,8 +193,6 @@ your_project/
     ├── tables/
     └── figures/
 ```
-
-**Note:** Referee 2 ONLY writes to `code/replication/` and `correspondence/referee2/`. It NEVER modifies author code in `code/R/`, `code/stata/`, or `code/python/`.
 
 ---
 
