@@ -27,6 +27,10 @@ The key insight: **you cannot grade your own homework.** If you ask the same Cla
 
 **What it is:** A comprehensive audit and replication protocol that performs five distinct audits, creates cross-language replication scripts, and produces a formal referee report.
 
+**Why the code audits matter:** The code audits exist to catch problems due to hallucination errors or flawed software-specific packages — for instance, `reg` in Stata may produce different results than `lm()` in R, and they cannot both be right. Cross-language replication surfaces these discrepancies. The audits also provide conceptual scrutiny of the empirical approach. It's not perfect, but it gives the author a structured opportunity to reflect on what they may be missing.
+
+**Why the directory/output audits matter:** The directory structure, file paths, and output automation audits exist because this project will eventually need to be submitted as a replication package to a journal. The sooner the project is organized for that eventuality, the less painful the submission process will be. These audits enforce replication-package hygiene from the start.
+
 **The Five Audits:**
 
 | Audit | Purpose | Key Action |
