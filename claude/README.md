@@ -25,6 +25,7 @@ cp CLAUDE.md /path/to/your/project/
 - Key decisions you've made (so Claude doesn't re-suggest dropped ideas)
 - Data sources, identification strategy, variable definitions
 - Current status ("we're in the estimation phase")
+- Referee 2 correspondence status (but NOT the reports themselves)
 
 **Why it matters:** Without this, every new Claude session starts from zero. You waste time re-explaining context. Worse, Claude might suggest things you've already tried and rejected.
 
@@ -41,6 +42,22 @@ This template exists because:
 
 ---
 
+## Relationship to Referee 2
+
+`CLAUDE.md` and the Referee 2 protocol serve different purposes:
+
+| | CLAUDE.md | Referee 2 Reports |
+|---|-----------|-------------------|
+| **Purpose** | Project context for working sessions | Formal audit findings |
+| **Location** | Project root | `correspondence/referee2/` |
+| **Who uses it** | Your main Claude session (the "author") | A separate Claude session (the "referee") |
+| **Updated by** | You, when decisions change | Referee 2, after each audit round |
+| **Contains** | Context, decisions, status | Audit findings, concerns, verdicts |
+
+**Key insight:** The referee reports are a *paper trail*, not project context. They document what was checked and what was found. The `CLAUDE.md` file tracks status ("Round 2 in progress") but does not contain the reports themselves.
+
+---
+
 ## Related Tools
 
-Looking for adversarial review? See `personas/referee2.md` — that's a separate persona for code review, not a Claude configuration template.
+Looking for the audit protocol itself? See `personas/referee2.md` — that's the systematic audit protocol with five audits, cross-language replication, and formal referee reports.

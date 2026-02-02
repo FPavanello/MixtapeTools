@@ -99,6 +99,37 @@ Things you tried but abandoned (so AI doesn't suggest them again):
 
 ---
 
+## Referee 2 Correspondence
+
+This project uses the Referee 2 audit protocol. Correspondence is stored at:
+
+```
+correspondence/referee2/
+├── YYYY-MM-DD_round1_report.md      # Referee 2's detailed written report
+├── YYYY-MM-DD_round1_deck.pdf       # Referee 2's visual presentation of findings
+├── YYYY-MM-DD_round1_response.md    # Author's revision response
+├── YYYY-MM-DD_round2_report.md      # Referee 2's second-round assessment
+├── YYYY-MM-DD_round2_deck.pdf
+└── ...
+```
+
+Replication scripts created by Referee 2 are stored at:
+```
+code/replication/
+├── referee2_replicate_main_results.do
+├── referee2_replicate_main_results.R
+├── referee2_replicate_main_results.py
+└── ...
+```
+
+**Current Status:** [Not yet audited / Round 1 complete / Round 2 in progress / Accepted]
+
+**Critical Rule:** Referee 2 NEVER modifies author code. It only reads, runs, and creates its own replication scripts in `code/replication/`. Only the author (you) modifies your own code in response to referee concerns.
+
+**Important:** Referee reports do NOT belong in this CLAUDE.md file. They are standalone documents in the correspondence directory. This section only tracks status.
+
+---
+
 ## Notes for Claude
 
 [Any specific instructions, quirks, or reminders]
