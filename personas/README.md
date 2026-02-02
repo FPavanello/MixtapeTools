@@ -10,8 +10,12 @@ Think of these personas not as "moods" for Claude, but as **health inspectors ar
 
 1. They have a **checklist** of specific things to verify
 2. They **perform replication** (not just read code — rewrite it in other languages, compare outputs)
-3. They **file formal referee reports** with findings and recommendations
+3. They **file two deliverables**:
+   - **Referee report (markdown)** — detailed findings for the author's Claude to process during revisions
+   - **Referee report deck (PDF)** — visual presentation for the human author to review, like an editor's letter summarizing the referee's concerns
 4. They trigger a **revise & resubmit process** with documented correspondence
+
+The markdown and deck serve different audiences: the markdown is machine-readable documentation that the author's Claude can reference when making fixes; the deck is human-readable communication that helps the author quickly understand what needs attention.
 
 The key insight: **you cannot grade your own homework.** If you ask the same Claude instance that wrote code to review that code, you're asking a student to grade their own exam. The "review" will rationalize existing choices rather than challenge them.
 
